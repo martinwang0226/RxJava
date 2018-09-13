@@ -1,4 +1,4 @@
-package martinwang.rxjava;
+package martinwang.rxjava.fundamental;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -24,21 +24,27 @@ public class ColdActivity extends Activity {
         Cold();
     }
 
-    public void Cold(){
-
+    public void Cold() {
+        observable.subscribe(subsriber1);
+        observable.subscribe(subsriber2);
+        try {
+            Thread.sleep(100L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     Consumer<Long> subsriber1 = new Consumer<Long>() {
         @Override
-        public void accept(@NonNull  Long aLong) throws Exception {
-            Log.i("Cold","subscriber1" + aLong);
+        public void accept(@NonNull Long aLong) throws Exception {
+            Log.i("Cold", "subscriber1" + "===========" + aLong);
         }
     };
 
     Consumer<Long> subsriber2 = new Consumer<Long>() {
         @Override
-        public void accept(@NonNull  Long aLong) throws Exception {
-            Log.i("Cold","subscriber2" + aLong);
+        public void accept(@NonNull Long aLong) throws Exception {
+            Log.i("Cold", "subscriber2" + "=============" + aLong);
         }
     };
 
@@ -46,12 +52,11 @@ public class ColdActivity extends Activity {
         @Override
         public void subscribe(ObservableEmitter<Long> e) throws Exception {
             Observable.interval(10,
-                    TimeUnit.MILLISECONDS., Schedulers.computation())
+                    TimeUnit.MILLISECONDS, Schedulers.computation())
                     .take(Integer.MAX_VALUE)
                     .subscribe(e::onNext);
         }
-    });
-
+    }).observeOn(Schedulers.newThread());
 
 
 }

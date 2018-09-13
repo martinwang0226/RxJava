@@ -1,4 +1,4 @@
-package martinwang.rxjava;
+package martinwang.rxjava.fundamental;
 
 import android.app.Activity;
 import android.os.Bundle;

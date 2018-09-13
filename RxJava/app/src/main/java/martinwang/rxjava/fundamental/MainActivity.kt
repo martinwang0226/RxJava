@@ -1,7 +1,8 @@
-package martinwang.rxjava
+package martinwang.rxjava.fundamental
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import martinwang.rxjava.R
 
 class MainActivity : AppCompatActivity() {
 
