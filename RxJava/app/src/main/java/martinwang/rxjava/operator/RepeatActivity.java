@@ -15,12 +15,13 @@ import io.reactivex.Observable;
 public class RepeatActivity extends Activity {
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
-        Repeat1();
-        try {
-            Thread.sleep(12000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        Repeat1();
+//        try {
+//            Thread.sleep(12000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        RepeatUntil();
     }
 
     public void Repeat() {
@@ -40,8 +41,18 @@ public class RepeatActivity extends Activity {
                 .subscribe(integer -> System.out.println(integer));
     }
 
-    public void RepeatUntil(){
-//        final long
+    public void RepeatUntil() {
+        final long startTimeMills = System.currentTimeMillis();
+        Observable.interval(500, TimeUnit.MILLISECONDS)
+                .take(5)
+                .repeatUntil(() -> System.currentTimeMillis() - startTimeMills > 5000)
+                .subscribe(aLong -> System.out.println(aLong));
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
